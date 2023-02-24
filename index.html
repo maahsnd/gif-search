@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <img src="#">
+  <button type="button" onclick="fetchGif()">refresh</button>
+  <form>
+    <label for="search"></label>
+    <input id="search" name="search" type="text">
+    <button type="button" onclick="searchGif(event)">search</button>
+  </form>
+  <script>
+    const img = document.querySelector('img');
+
+    function searchGif(event){
+      const searchTerm = document.getElementById('search').value;
+      console.log(searchTerm);
+      fetch(`https://api.giphy.com/v1/gifs/translate?api_key=A97ZFCRaJcHpOAWhFsY7lIkm1RJaJx2U&s=${searchTerm}`, {mode: 'cors'})
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(response) {
+        img.src = response.data.images.original.url;
+      })
+      .catch(function(error) {
+        alert("oopsy, that didn't work");
+      })
+    }
+
+    function fetchGif() {
+      fetch('https://api.giphy.com/v1/gifs/translate?api_key=A97ZFCRaJcHpOAWhFsY7lIkm1RJaJx2U&s=cats', {mode: 'cors'})
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(response) {
+        img.src = response.data.images.original.url;
+      });
+    };
+
+  </script>
+</body>
+</html>
